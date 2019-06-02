@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+	<head>
+		<title>ArrayToTree Demo</title>
+		<script type="module">
+			import { ArrayToTree } from './ArrayToTree.js';
+
+			window.ArrayToTree = ArrayToTree;
+		</script>
+		<script language="javascript">
+			function loadcontent() {
+					window.sampleData = [
+					{ id: 'item1', name: "Grand Pa (Dad's)", parent: null },
+					{ id: 'item2', name: "Grand Ma (Dad's)", parent: 0 },
+					{ id: 'item3', name: "Grand Pa (Mom's)", parent: ''},
+					{ id: 'item4', name: "Grand Ma (Mom's)", parent: 0},
+					{ id: 'item5', name: 'Dad', parent: ['item1', 'item2'] },
+					//{ id: 'item5', name: 'Dad', parent: 'item1' },
+					{ id: 'item6', name: 'Mom', parent: ['item3', 'item4'] },
+					{ id: 'item7', name: 'Me', parent: ['item6', 'item5'] },
+					{ id: 'item8', name: 'My Sis', parent: ['item5', 'item6'] },
+					{ id: 'item9', name: 'Cousin', parent: 'item15' },
+					{ id: 'item10', name: 'My Kid', parent: ['item7', 'item11'] },
+					{ id: 'item11', name: 'My Wife', parent: 'item7' },
+					{ id: 'item12', name: "My Kid's Gf", parent: 'item10' },
+					{ id: 'item13', name: "My sis's friend", parent: 'item8' },
+					{ id: 'item14', name: "My sis's enemy", parent: 'item0' },
+					{ id: 'item15', name: "Uncle", parent: ['item1', 'item2'] },
+				];
+
+				//let converter = new ArrayToTree(sampleData, {parentReferences: false});
+				let converter = new ArrayToTree(sampleData);
+				window.structuredData = converter.convert();
+				console.log("Original sample: ", sampleData, "\nStructured data: ", structuredData);
+			}
+		</script>
+	</head>
+	<body onload="loadcontent()">
+		<h2>ArrayToTree Demo</h2>
+		<div class="content">
+		</div>
+		<p>
+			For playing around, Open developer tools -> Check console log -> Check <strong>window.structuredData</strong>
+		</p>
+	</body>
+</html>

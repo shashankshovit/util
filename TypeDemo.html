@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+	<head>
+		<title>Type Demo</title>
+		<script type="module">
+			import { Type } from "./Type.js";
+
+			window.Type = Type;
+		</script>
+		<script>
+			function printDemo() {
+				let html = document.querySelector('body div.content');
+				html.innerHTML += `<br>Type.isInteger(-34) -> <strong>${Type.isInteger(-34)}</strong>`;
+				html.innerHTML += `<br>Type.isWholeNumber(new Number(54)) -> <strong>${Type.isWholeNumber(new Number(54))}</strong>`;
+				html.innerHTML += `<br>Type.isFloat(new Number(8.5)) -> <strong>${Type.isFloat(new Number(8.5))}</strong>`;
+				html.innerHTML += `<br>Type.isString("Hello world") -> <strong>${Type.isString("Hello world")}</strong>`;
+				html.innerHTML += `<br>Type.isNumberPossible('66') -> <strong>${Type.isNumberPossible('66')}</strong>`;
+				html.innerHTML += `<br>[0, '', null, undefined, [], {}, false].every(e => Type.isEmpty(e)) -> <strong>${[0, '', null, undefined, [], {}, false].every(e => Type.isEmpty(e))}</strong>`;
+			}
+		</script>
+	</head>
+
+	<body onload="printDemo()">
+		<h2>Type Demo</h2>
+		<div class="content">
+		</div>
+		<p>For playing around, Open developer tools -> console -> <strong>window.Type</strong></p>
+	</body>
+</html>

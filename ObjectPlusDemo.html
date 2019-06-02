@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+	<head>
+		<title>ObjectPlus Demo</title>
+		<script type="module">
+			import { ObjectPlus } from './ObjectPlus.js';
+
+			window.ObjectPlus = ObjectPlus;
+		</script>
+		<script>
+			function fillcontent() {
+				let statements = [
+					`obj = {a: {b: 1, c: [1,2,3]}}`,
+					`objectPlusObj = new ObjectPlus(obj)`,
+					`//This gets printed because of overwritten toString() method`,
+				];
+				let content = document.querySelector('div.content');
+				for(let statement of statements) {
+					content.innerHTML += `<br>${statement} -> <strong>${Function('return '+statement)()}</strong>`;
+				}
+			}
+		</script>
+
+	</head>
+	<body onload="fillcontent()">
+		<h2>Object Plus Demo</h2>
+		<div class="content">
+		</div>
+		<p>For playing around, open developer tools -> console -> <strong>window.objectPlusObj</strong></p>
+	</body>
+</html>

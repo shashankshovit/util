@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+	<head>
+		<title>ArrayPlus Demo</title>
+		<script type="module">
+			import { ArrayPlus } from "./ArrayPlus.js";
+			import { ObjectPlus } from './ObjectPlus.js';
+
+			let myOldArr = [23, 43, 54, 12, 67, 2, 98, 32];
+			let arrayPlusObj = new ArrayPlus(myOldArr, {circular: true});
+			window.arrayPlusObj = arrayPlusObj;
+			window.ArrayPlus = ArrayPlus;
+		</script>
+		<script>
+			function printDemo() {
+				let html = document.querySelector('body div.content');
+				let statements = [
+					`arrayPlusObj`,
+					`arrayPlusObj.first`,
+					`arrayPlusObj.last`,
+					`arrayPlusObj.fromIndex(-2)`,
+					`arrayPlusObj.fromIndex(12)`,
+					`arrayPlusObj.sum`,
+					`arrayPlusObj.merge([1,[2],null,{a:{b:1}},undefined,'Foo',-1,new Set([5])])`,
+				];
+				for(let statement of statements) {
+					let calculated = new Function(`return(${statement})`)();
+					html.innerHTML += `<br><br>${statement} -> <br><strong>${calculated}</strong>`;
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="printDemo()">
+		<h2>Array Plus Demo</h2>
+		<div class="content">
+		</div>
+		<p>For playing around, Open developer tools -> console -> <strong>window.arrayPlusObj</strong></p>
+	</body>
+</html>
