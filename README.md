@@ -10,5 +10,8 @@ This package includes many developer friendly utility files which would ease the
 ## Demo
 Each class has a demo html file as well. Look for html file with 'ClassName + Demo' for reference purposes.
 
+## Wiki
+[The detailed instruction manuals could be found in the wiki.](https://github.com/shashankshovit/util/wiki)
+
 ## Suggestions
 Please feel free to drop your suggestions. They are always welcome.
