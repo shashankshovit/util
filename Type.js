@@ -70,16 +70,41 @@ export class Type {
 
 	/** Checks whether the argument value is an object. */
 	static isObject(val) {
-		return !Type.isNullable(val) && (typeof(val) === "object" || val instanceof Object);
+		return !Type.isNullable(val)
+			&& (typeof(val) === "object" 
+			|| val instanceof Object);
 	}
 
-	/** Checks whether the argument value is a set */
+	/** Checks whether the argument value is a set. */
 	static isSet(val) {
 		return val instanceof Set;
 	}
 	
-	/** Checks whether the argument value is a function */
+	/** Checks whether the argument value is a function. */
 	static isFunction(val) {
 		return typeof(val) === "function";
+	}
+
+	/** Checks whether the argument value is a primitive data type. */
+	static isPrimitive(val) {
+		return Type.isNumber(val)
+			|| Type.isString(val)
+			|| Type.isBoolean(val)
+			|| Type.isNullable(val);
+	}
+
+	/** Returns the type of argument value. */
+	static typeOf(val) {
+		if(val === null || val === undefined) {
+			return typeof(undefined);
+		} else if(Type.isNumber(val)) {
+			return typeof(0);
+		} else if(Type.isString(val)) {
+			return typeof('');
+		} else if(Type.isBoolean(val)) {
+			return typeof(true);
+		} else {
+			return val.constructor.name;
+		}
 	}
 }

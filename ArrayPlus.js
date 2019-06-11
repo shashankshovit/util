@@ -103,6 +103,15 @@ export class ArrayPlus extends Array {
 		return this[index];
 	}
 
+	/** Override map */
+	map(func) {
+		if(!Type.isFunction(func)) {
+			ArrayPlus._reportError("Map accepts only function.")
+		}
+		let arr = [...this];
+		return new ArrayPlus(arr.map(func));
+	}
+
 	/**
 	 * Adds up the values in the array and returns the sum.
 	 *
@@ -247,5 +256,49 @@ export class ArrayPlus extends Array {
 		return resultant;
 	}// _merge
 
-
+	/**
+	 * Returns unique values in the array.
+	 *
+	 * @param
+	 *
+	 * @return {Array}
+	 */
+	unique(options) {
+		let isSameType = (new Set(this.map(i => Type.typeOf(i)))).size === 1;
+		if(!isSameType) {
+			ArrayPlus._reportError("All elements of the list must be of same type for unique method.");
+		}
+		//options = Object.assign({ key: null, func: function(){} }, options);
+		if(options && options.func && !Type.isFunction(func)) {
+			ArrayPlus._reportError("Only function accepted as callback.");
+		}
+		if(options && options.func) {
+			// Custom unique rule
+			let result = options.func.call(undefined, ObjectPlus.clone(this));
+			if(!result) {
+				ArrayPlus._reportError("Custom rule for unique must return an array.");
+			}
+			return new ArrayPlus(result);
+		} else {
+			// Custom unique rule not provided
+			if(Type.isPrimitive(this.first)) {
+				return new ArrayPlus([...new Set(this)]);
+			} else {
+			 try {
+			 	if(options && (options.key || ((Type.isArray(this.first) && options.key==0)))) {
+					let uniq = {};
+					for(let ele of this) {
+						ele[options.key] && !uniq[ele[options.key]] && (uniq[ele[options.key]] = ele);
+					}
+					return new ArrayPlus(Object.values(uniq));
+				} else {
+					ArrayPlus._reportError("Please provide a key based on which the elements should be considered unique.");
+				}
+			 } catch(e) {
+			 	ArrayPlus._reportError("Unique isn't supported for this kind of array. Please provide your custom function.", false, e);
+			 }
+			}
+		}
+		
+	}
 }
